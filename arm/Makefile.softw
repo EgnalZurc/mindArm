@@ -1,4 +1,5 @@
 all:
-	gnatmake -c src/main.adb
-	gnatbind out/main.ali
-	gnatlink out/main.ali out/*.o
+	cd out; gnatmake -c ../src/devices.adb -o devices.o
+	cd out; gnatmake -c ../src/main.adb -o main.o
+	cd out; gnatbind main.ali
+	cd out; gnatlink main.ali deviceStarter.o

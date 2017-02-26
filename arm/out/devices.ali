@@ -1,0 +1,67 @@
+V "GNAT Lib v4.9"
+P ZX
+
+RN
+RV NO_IO
+
+U devices%b		devices.adb		7aa95d2c NE OO PK IL
+W ada%s			ada.ads			ada.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+
+U devices%s		devices.ads		98b3419a EE NE OO PK IL
+W ada%s			ada.ads			ada.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+
+D ada.ads		20070406091342 3ffc8e18
+D a-except.ads		20140129161953 f86a4103
+D a-finali.ads		20111121113555 52ecdc1b
+D a-ioexce.ads		20140225151544 e4a01f64
+D a-stream.ads		20140122164720 1a984740
+D a-tags.ads		20111212115430 6c0509d0
+D a-textio.ads		20140129155348 386df5d4
+D a-unccon.ads		20070406091342 f9eb8f06
+D devices.ads		20170226172014 a0deb44e
+D devices.adb		20170226172413 e21a1cb6
+D interfac.ads		20140225151838 69adb1b9
+D i-cstrea.ads		20130412125801 8128536b
+D system.ads		20150309170216 72a1f35b
+D s-crtl.ads		20140225151544 840e6817
+D s-exctab.ads		20140225151139 54135002
+D s-ficobl.ads		20120709130952 55a71d43
+D s-finmas.ads		20140225151139 814daec4
+D s-finroo.ads		20120426095924 4ff27390
+D s-parame.ads		20140225151139 ab8cb46a
+D s-pooglo.ads		20110804083314 542f33d0
+D s-soflin.ads		20140225151139 aa763b52
+D s-stache.ads		20140225151139 a37c21ec
+D s-stalib.ads		20140225151139 a891183f
+D s-stoele.ads		20140225151139 2dc34a04
+D s-stoele.adb		20140225151139 ed88f8fb
+D s-stopoo.ads		20131010103753 b16154c2
+D s-traent.ads		20140225151139 b5116092
+D s-unstyp.ads		20140225151139 510692af
+D s-wchcon.ads		20140225151139 1b7d22d2
+X 1 ada.ads
+16K9*Ada 19e8 9|1r6 10|1r6 7r17 8r17 9r17 10r17 11r18 12r18 13r18 14r18 15r18
+. 16r18 17r18
+X 7 a-textio.ads
+49K13*Text_IO 471e16 9|1w10 10|1w10 7r21 8r21 9r21 10r21 11r22 12r22 13r22
+. 14r22 15r22 16r22 17r22
+263U14*Put_Line 10|7s29 8s29 9s29 10s29 11s30 12s30 13s30 14s30 15s30 16s30
+. 17s30
+X 9 devices.ads
+3K9*devices 19l5 19e12 10|2b14 21l5 21t12
+5i3*TEMPA{integer}
+6i3*TEMPB{integer}
+7i3*TEMPC{integer}
+8i3*TEMPD{integer}
+9i3*PRESA{integer}
+10i3*PRESB{integer}
+11i3*PRESC{integer}
+12i3*PRESD{integer}
+13i3*SERVA{integer}
+14i3*SERVB{integer}
+15i3*SERVC{integer}
+17U13*deviceError 17>26 10|4b13 20t6
+17i26 DEVICE{integer} 10|4b26 6r10
+

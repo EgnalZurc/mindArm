@@ -1,13 +1,15 @@
 with Ada.Text_IO;
-with "softw/devices.adb"; use  "softw/devices.adb";
+with devices; use  devices;
 
-procedure main is:
+procedure main is
 
   ProgramName    : String := "MindArm";
   ProgramVersion : String := "1.0";
 
   function LoadHardwareLibs return integer;
   Pragma Import (C, LoadHardwareLibs, "loadDevices");
+
+  loadResoult : integer;
 
 begin
 
@@ -17,9 +19,9 @@ begin
   Ada.Text_IO.Put_Line (" ");
   Ada.Text_IO.Put_Line ("------------------------------------------------------------------");
 
-  loadResoult : integer := LoadHardwareLibs;
+  loadResoult := LoadHardwareLibs;
   if loadResoult > 0 then
-    deviceError(loadResoult)
+    deviceError(loadResoult);
   else
     Ada.Text_IO.Put_Line ("Devices started correctly!!");
   end if;
