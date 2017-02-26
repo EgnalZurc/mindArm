@@ -1,25 +1,27 @@
 with Ada.Text_IO;
+with "softw/devices.adb"; use  "softw/devices.adb";
 
 procedure main is:
 
   ProgramName    : String := "MindArm";
   ProgramVersion : String := "1.0";
 
-  Pragma Import (C, LoadHardwareLibs, "loadComponents");
+  function LoadHardwareLibs return integer;
+  Pragma Import (C, LoadHardwareLibs, "loadDevices");
 
 begin
-  
+
   Ada.Text_IO.Put_Line ("------------------------------------------------------------------");
   Ada.Text_IO.Put_Line (" ");
   Ada.Text_IO.Put_Line ("Application " & ProgramName & " V " & ProgramVersion & "loaded!!"  );
   Ada.Text_IO.Put_Line (" ");
   Ada.Text_IO.Put_Line ("------------------------------------------------------------------");
 
-  if !LoadHardwareLibs then
-    Ada.Text_IO.Put_Line ("Hardware components can't be loaded, exxiting!!!");
+  loadResoult : integer := LoadHardwareLibs;
+  if loadResoult > 0 then
+    deviceError(loadResoult)
   else
-     Ada.Text_IO.Put_Line ("Hardware components loaded!! ");
+    Ada.Text_IO.Put_Line ("Devices started correctly!!");
   end if;
 
 end main;
-

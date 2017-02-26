@@ -1,0 +1,3 @@
+gnatmake -c devices.adb
+gnatbind debices.ali
+gnatlink control.ali out/*.o
