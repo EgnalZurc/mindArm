@@ -1,1 +1,2 @@
-gcc -c src/*.c out/.
+all:
+	gcc -c src/hardw/deviceStarter.c -o out/deviceStarter.o

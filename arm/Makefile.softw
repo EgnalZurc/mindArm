@@ -1,3 +1,4 @@
-gnatmake -c devices.adb
-gnatbind debices.ali
-gnatlink control.ali out/*.o
+all:
+	gnatmake -c src/main.adb
+	gnatbind out/main.ali
+	gnatlink out/main.ali out/*.o
