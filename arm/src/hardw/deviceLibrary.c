@@ -1,4 +1,4 @@
-#include "temperature.h"
+#include "deviceStarter.h"
 
 int    initTempSensor  (int sensor)
 {
@@ -19,4 +19,20 @@ double  getTemperature  (int sensor)
 
   // Convert Temperature of the LM35 reading to a temperature: 0.01 volts per C.
   return (voltaje * 100.0) ;
+}
+
+
+int loadDevices ()
+{
+  printf("Loading devices...\n");
+
+  // Initialise wiringPi
+  if (wiringPiSetup () == -1)
+    return -1 ;
+
+  // Initialise temperature sensors
+  if (initTempSensor (TEMPA) == TEMPA)
+    return TEMPA;
+
+  return 0;
 }

@@ -8,5 +8,7 @@
 #define TEMPC 2
 #define TEMPD 3
 
-int    initTempSensor  (int sensor);
+int     initTempSensor  (int sensor);
 double  getTemperature  (int sensor);
+
+int     loadDevices     ();
