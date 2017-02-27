@@ -9,11 +9,11 @@ procedure main is
   function LoadHardwareLibs return integer;
   Pragma Import (C, LoadHardwareLibs, "loadDevices");
 
-  procedure GetTemp (result : in integer ; decive : out integer);
-  Pragma Import (C, PrintTemp, "getTemperature");
+  procedure GetTemp (result : in integer ; device : out float);
+  Pragma Import (C, GetTemp, "getTemperature");
 
   loadResoult : integer;
-  temp : double;
+  temp : float;
 
 begin
 
@@ -26,12 +26,12 @@ begin
   loadResoult := LoadHardwareLibs;
   if loadResoult > 0 then
     deviceError(loadResoult);
-  else if loadResoult < 0 then
+  elsif loadResoult < 0 then
     Ada.Text_IO.Put_Line ("ERROR configurating the Raspberry!!");
   else
     Ada.Text_IO.Put_Line ("Devices started correctly!!");
-    temp = GetTemp(0);
-    Ada.Text_IO.Put_Line ("Temperature of sensor 0 = " & temp);
+    GetTemp(0, temp);
+    Ada.Text_IO.Put_Line ("Temperature of sensor 0 = " & float'image(temp) & " ºC ");
   end if;
 
 end main;

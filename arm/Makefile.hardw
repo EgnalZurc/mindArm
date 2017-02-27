@@ -1,11 +1,13 @@
 SRC=src/hardw
 OUT=out
 OBJS=$(OUT)/OBJS
-GCC=gcc -c
+GCC=gcc
 
 all:
 	mkdir -p  $(OUT)
 	mkdir -p  $(OBJS)
 	echo "Compiling hardware files..."
-	$(GCC) $(SRC)/deviceStarter.c -o $(OBJS)/hardwLib.o
+	$(GCC) $(SRC)/deviceStarter.c -o $(OBJS)/deviceStarter.o
+	$(GCC) $(SRC)/devices/temperature.c -o $(OBJS)/temperature.o
+	$(GCC) $(OBJS)/deviceStarter.o $(OBJS)/temperature.o -o $(OBJS)/hardwLib.o
 	echo "HARDWARE libs compiled OK!!!"

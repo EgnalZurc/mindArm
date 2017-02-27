@@ -1,5 +1,5 @@
 #include <stdio.h>
 
-#include "temperature.h"
+#include "devices/temperature.h"
 
 int loadDevices ();
