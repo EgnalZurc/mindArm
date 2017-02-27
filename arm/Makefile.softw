@@ -1,5 +1,16 @@
+SRC=../../src/
+OUT=out
+OBJS=$(OUT)/OBJS
+GNAT=gnatmake -c
+
 all:
-	cd out; gnatmake -c ../src/devices.adb -o devices.o
-	cd out; gnatmake -c ../src/main.adb -o main.o
-	cd out; gnatbind main.ali
-	cd out; gnatlink main.ali deviceStarter.o
+	mkdir -p  $(OUT)
+	mkdir -p  $(OBJS)
+	echo "Compiling software files..."
+	cd $(OBJS); $(GNAT) $(SRC)/devices.adb -o devices.o
+	cd $(OBJS); $(GNAT) $(SRC)/main.adb -o main.o
+	echo "Linking files..."
+	cd $(OBJS); gnatbind main.ali
+	cd $(OBJS); gnatlink main.ali hardwLib.o
+	mv $(OBJS)/main $(OUT)/ARM
+	echo "SOFTWARE compiled OK!!!"

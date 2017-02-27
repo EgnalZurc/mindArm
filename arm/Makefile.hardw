@@ -1,2 +1,11 @@
+SRC=src/hardw
+OUT=out
+OBJS=$(OUT)/OBJS
+GCC=gcc -c
+
 all:
-	gcc -c src/hardw/deviceStarter.c -o out/deviceStarter.o
+	mkdir -p  $(OUT)
+	mkdir -p  $(OBJS)
+	echo "Compiling hardware files..."
+	$(GCC) $(SRC)/deviceStarter.c -o $(OBJS)/hardwLib.o
+	echo "HARDWARE libs compiled OK!!!"

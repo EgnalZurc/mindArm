@@ -1,12 +1,12 @@
-software:
+all:
+	make -f Makefile.hardw
 	make -f Makefile.softw
 
 hardware:
 	make -f Makefile.hardw
 
-all:
+software:
 	make -f Makefile.softw
-	make -f Makefile.hardw
 
 clean:
-	rm out/*
+	rm -fr out/*

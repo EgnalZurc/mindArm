@@ -2,6 +2,6 @@
 
 int loadDevices ()
 {
-  printf("Loading devices....");
+  printf("Loading devices...\n");
   return 0;
 }
