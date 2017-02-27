@@ -2,10 +2,10 @@ with Ada.Text_IO;
 
 package devices is
 
-  TEMPA   : integer :=  1;
-  TEMPB   : integer :=  2;
-  TEMPC   : integer :=  3;
-  TEMPD   : integer :=  4;
+  TEMPA   : integer :=  0;
+  TEMPB   : integer :=  1;
+  TEMPC   : integer :=  2;
+  TEMPD   : integer :=  3;
   PRESA   : integer :=  11;
   PRESB   : integer :=  12;
   PRESC   : integer :=  13;
