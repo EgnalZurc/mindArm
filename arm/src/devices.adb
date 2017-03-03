@@ -4,7 +4,7 @@ package body devices is
   procedure deviceError (DEVICE: in integer) is
   begin
     case DEVICE is
-      when 0 => Ada.Text_IO.Put_Line ("Error loading temperature sensor number 1, program will exit...");
+      when 15 => Ada.Text_IO.Put_Line ("Error loading temperature sensor number 1, program will exit...");
       when 1 => Ada.Text_IO.Put_Line ("Error loading temperature sensor number 2, program will exit...");
       when 2 => Ada.Text_IO.Put_Line ("Error loading temperature sensor number 3, program will exit...");
       when 3 => Ada.Text_IO.Put_Line ("Error loading temperature sensor number 4, program will exit...");
