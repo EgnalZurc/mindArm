@@ -7,5 +7,5 @@ all:
 	mkdir -p  $(OUT)
 	mkdir -p  $(OBJS)
 	echo "Compiling hardware files..."
-	$(GCC) -o $(OBJS)/hardwLib.o $(SRC)/deviceLibrary.c -lwiringPi
+	$(GCC) -o $(OBJS)/servoMotor.o $(SRC)/servoMotor.cpp -lwiringPi
 	echo "HARDWARE libs compiled OK!!!"
