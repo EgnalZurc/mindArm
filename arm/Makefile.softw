@@ -7,10 +7,10 @@ all:
 	mkdir -p  $(OUT)
 	mkdir -p  $(OBJS)
 	echo "Compiling software files..."
-	cd $(OBJS); $(GNAT) $(SRC)/devices.adb -o devices.o 
-	cd $(OBJS); $(GNAT) $(SRC)/main.adb -o main.o 
+	cd $(OBJS); $(GNAT) $(SRC)/devices.adb -o devices.o
+	cd $(OBJS); $(GNAT) $(SRC)/main.adb -o main.o
 	echo "Linking files..."
-	cd $(OBJS); gnatbind main.ali 
+	cd $(OBJS); gnatbind main.ali
 	cd $(OBJS); gnatlink main.ali servoMotor.o temperature.o -lwiringPi
 	mv $(OBJS)/main $(OUT)/ARM
 	echo "SOFTWARE compiled OK!!!"

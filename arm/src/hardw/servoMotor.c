@@ -3,42 +3,36 @@
 
 #include <wiringPi.h>
 #include <gertboard.h>
+#include <softPwm.h>
 
-int blink (void)
+#define PWMMIN      5
+#define PWMMAX      22
+#define PWMERROR    4
+#define INITPOS     13
+
+//Usage 1 to 18
+int getPWMPot(int voltaje)
 {
-  wiringPiSetup () ;
-  pinMode (21, OUTPUT) ;
-  for (;;)
-  {
-    digitalWrite (21, HIGH) ; delay (500) ;
-    digitalWrite (21,  LOW) ; delay (500) ;
-  }
-  return 0 ;
+  int pot = voltaje + PWMERROR;
+  if (pot == PWMMIN-1) return 0;
+  if (pot >= PWMMAX) return PWMMAX;
+  if (pot <= PWMMIN) return PWMMIN;
+  return pot;
 }
 
 int loadServoMotor (int SERV)
 {
-  int bright;
-  printf("Loading servo motor in pin: %d\n", SERV);
+  int degrees;
 
-  // Initialise wiringPi
-  if (wiringPiSetup () == -1)
-  {
-    printf("Error loading wiringPi: %s\n", strerror (errno) );
-    return -1;
-  }
+  if (wiringPiSetup () == -1) //using wPi pin numbering
+     return (1) ;
 
-  //Turn on the power on led
-  //pinMode (15, OUTPUT) ;
-  //digitalWrite (15, LOW) ;
+  pinMode(SERV, PWM_OUTPUT);
+  pwmSetMode(PWM_MODE_MS);
+  pwmSetClock (1920); //clock at 50Hz
+  pwmSetRange (200) ;
 
-  // Initialise servo motor
-  pinMode   (SERV, PWM_OUTPUT);
-  for (bright = 0 ; bright < 1024 ; bright ++)
-  {
-    pwmWrite  (SERV, bright);
-    delay (100);
-  }
+  pwmWrite(SERV, INITPOS);
 
-  return 0;
+  return 0 ;
 }
