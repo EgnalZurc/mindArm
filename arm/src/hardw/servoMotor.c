@@ -9,6 +9,7 @@
 #define PWMMAX      22
 #define PWMERROR    4
 #define INITPOS     13
+#define PWMOFF      0
 
 //Usage 1 to 18
 int getPWMPot(int voltaje)
@@ -20,12 +21,23 @@ int getPWMPot(int voltaje)
   return pot;
 }
 
+void unlockServo(int SERV)
+{
+  pwmWrite(SERV, PWMOFF);
+}
+
 int loadServoMotor (int SERV)
 {
   int degrees;
 
-  if (wiringPiSetup () == -1) //using wPi pin numbering
-     return (1) ;
+  printf("Loading servo motor in PIN %d\n", SERV);
+
+  // Initialise wiringPi
+  if (wiringPiSetup () == -1)
+  {
+    printf("Error loading wiringPi: %s\n", strerror (errno) );
+    return -1;
+  }
 
   pinMode(SERV, PWM_OUTPUT);
   pwmSetMode(PWM_MODE_MS);
@@ -33,6 +45,8 @@ int loadServoMotor (int SERV)
   pwmSetRange (200) ;
 
   pwmWrite(SERV, INITPOS);
+  delay(1000);
+  unlockServo(SERV);
 
   return 0 ;
 }

@@ -11,6 +11,6 @@ all:
 	cd $(OBJS); $(GNAT) $(SRC)/main.adb -o main.o
 	echo "Linking files..."
 	cd $(OBJS); gnatbind main.ali
-	cd $(OBJS); gnatlink main.ali servoMotor.o temperature.o -lwiringPi
+	cd $(OBJS); gnatlink main.ali servoMotor.o temperature.o pressure.o -lwiringPi
 	mv $(OBJS)/main $(OUT)/ARM
 	echo "SOFTWARE compiled OK!!!"

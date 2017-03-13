@@ -1,2 +1,2 @@
 all:
-	g++ servo.c -lwiringPi
+	g++ -o TEST deviceTest.c -lwiringPi

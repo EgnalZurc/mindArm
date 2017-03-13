@@ -11,7 +11,8 @@ int myFd;
 //SPI init, must be used once
 int loadSpiDriver()
 {
-  if (system("gpio load spi") == -1)
+  if (system("startSPI") == -1)
+  //if (system("gpio load spi") == -1)
   {
     printf ("Can't load the SPI driver: %s\n", strerror (errno)) ;
     return -1;
@@ -45,6 +46,9 @@ int myAnalogRead(int analogChannel)
 int loadTemperature (int TMP)
 {
   int measure;
+
+  printf("Loading temperature sensor in PIN %d\n", TMP);
+
   // Initialise SPI
   if( loadSpiDriver () != 0 ) return -2;
 

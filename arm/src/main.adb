@@ -9,17 +9,24 @@ procedure main is
   type PIN is new integer range 0 .. 29;
   type SPIPIN is new integer range 0 .. 7;
 
-  procedure LoadServoMotors (serv : in PIN; returnCode: out integer);
+  function LoadPressure (pres : PIN) return integer;
+  Pragma Import (C, LoadPressure, "loadPressure");
+
+  function LoadServoMotors (serv : PIN) return integer;
   Pragma Import (C, LoadServoMotors, "loadServoMotor");
 
-  procedure LoadTemperature (serv : in SPIPIN; returnCode: out integer);
+  function LoadTemperature (temp : SPIPIN) return integer;
   Pragma Import (C, LoadTemperature, "loadTemperature");
 
   loadResoult : integer;
 
+  PRESA       : PIN := 0;
+  PRESB       : PIN := 2;
+  PRESC       : PIN := 3;
+  PRESD       : PIN := 4;
   SERVA       : PIN := 1;
-  SERVB       : PIN := 16;
-  SERVC       : PIN := 17;
+  SERVB       : PIN := 24;
+  SERVC       : PIN := 6;
   TMPA        : SPIPIN := 0;
   TMPB        : SPIPIN := 1;
 
@@ -31,20 +38,58 @@ begin
   Ada.Text_IO.Put_Line (" ");
   Ada.Text_IO.Put_Line ("------------------------------------------------------------------");
 
+  -- Pressure sensor
+  loadResoult := LoadPressure (PRESA);
+  case loadResoult is
+    when 0 =>
+      Ada.Text_IO.Put_Line ("Pressure sensor A loaded correctly");
+    when -2 =>
+      Ada.Text_IO.Put_Line ("Error loading pressure sensor A, please, press the button");
+    when others =>
+      Ada.Text_IO.Put_Line ("Error loading pressure sensor A");
+  end case;
+  loadResoult := LoadPressure (PRESB);
+  case loadResoult is
+    when 0 =>
+      Ada.Text_IO.Put_Line ("Pressure sensor B loaded correctly");
+    when -2 =>
+      Ada.Text_IO.Put_Line ("Error loading pressure sensor B, please, press the button");
+    when others =>
+      Ada.Text_IO.Put_Line ("Error loading pressure sensor B");
+  end case;
+  loadResoult := LoadPressure (PRESC);
+  case loadResoult is
+    when 0 =>
+      Ada.Text_IO.Put_Line ("Pressure sensor C loaded correctly");
+    when -2 =>
+      Ada.Text_IO.Put_Line ("Error loading pressure sensor C, please, press the button");
+    when others =>
+      Ada.Text_IO.Put_Line ("Error loading pressure sensor C");
+  end case;
+  loadResoult := LoadPressure (PRESD);
+  case loadResoult is
+    when 0 =>
+      Ada.Text_IO.Put_Line ("Pressure sensor D loaded correctly");
+    when -2 =>
+      Ada.Text_IO.Put_Line ("Error loading pressure sensor D, please, press the button");
+    when others =>
+      Ada.Text_IO.Put_Line ("Error loading pressure sensor D");
+  end case;
+
   -- Servo Motors
-  LoadServoMotors(SERVA, loadResoult) ;
+  loadResoult := LoadServoMotors(SERVA) ;
   if loadResoult = 0 then
     Ada.Text_IO.Put_Line ("Servo motor A loaded correctly");
   else
     Ada.Text_IO.Put_Line ("Error loading servo motor A");
   end if;
-  LoadServoMotors(SERVB, loadResoult) ;
+  loadResoult := LoadServoMotors(SERVB) ;
   if loadResoult = 0 then
     Ada.Text_IO.Put_Line ("Servo motor B loaded correctly");
   else
     Ada.Text_IO.Put_Line ("Error loading servo motor B");
   end if;
-  LoadServoMotors(SERVC, loadResoult) ;
+  loadResoult := LoadServoMotors(SERVC) ;
   if loadResoult = 0 then
     Ada.Text_IO.Put_Line ("Servo motor C loaded correctly");
   else
@@ -52,13 +97,13 @@ begin
   end if;
 
   -- Temperature
-  LoadTemperature(TMPA, loadResoult) ;
+  loadResoult := LoadTemperature(TMPA) ;
   if loadResoult = 0 then
     Ada.Text_IO.Put_Line ("Temperature sensor A loaded correctly");
   else
     Ada.Text_IO.Put_Line ("Error loading temperature sensor A");
   end if;
-  LoadTemperature(TMPB, loadResoult) ;
+  loadResoult := LoadTemperature(TMPB) ;
   if loadResoult = 0 then
     Ada.Text_IO.Put_Line ("Temperature sensor B loaded correctly");
   else

@@ -9,4 +9,5 @@ all:
 	echo "Compiling hardware files..."
 	$(GCC) $(SRC)/servoMotor.c -o $(OBJS)/servoMotor.o -lwiringPi
 	$(GCC) $(SRC)/temperature.c -o $(OBJS)/temperature.o -lwiringPi
+	$(GCC) $(SRC)/pressure.c -o $(OBJS)/pressure.o -lwiringPi
 	echo "HARDWARE libs compiled OK!!!"
