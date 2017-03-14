@@ -50,3 +50,13 @@ int loadServoMotor (int SERV)
 
   return 0 ;
 }
+
+void writeServo(int PIN, int str)
+{
+  pinMode(PIN, PWM_OUTPUT);
+  pwmSetMode(PWM_MODE_MS);
+  pwmSetClock (1920); //clock at 50Hz
+  pwmSetRange (200) ;
+
+  pwmWrite(PIN, str);
+}

@@ -30,3 +30,16 @@ int loadPressure (int PRES)
 
   return -2 ;
 }
+
+int readPres (int PIN)
+{
+  int pres = 0; 
+
+  pinMode(PIN, INPUT);
+  pres = digitalRead(PIN);
+
+  printf("Pressure in sensor %d: %d\n", &PIN, &pres);
+
+  return pres;
+
+}

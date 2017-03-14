@@ -126,7 +126,7 @@ void testServoSoft()
   scanf("%d", &pin);
   printf("\n");
 
-  softPwmCreate(pin, 0, 100); //setup software pwm pin
+  softPwmCreate(pin, 0, 215); //setup software pwm pin
 
   for (;;)
   {

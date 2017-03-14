@@ -1,5 +1,6 @@
 with Ada.Text_IO;
 with devices; use  devices;
+with add; use  add;
 
 procedure main is
 
