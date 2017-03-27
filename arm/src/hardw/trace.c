@@ -3,10 +3,15 @@
 
 #include <wiringPi.h>
 
-void readTrace (int *SERVA, int *SERVB, int *SERVC, int *SERVD)
+int SERVA = 1;
+int SERVB = 0;
+int SERVC = -1;
+int SERVD = 0;
+
+void readTrace (int *SA, int *SB, int *SC, int *SD)
 {
-  *SERVA = 13;
-  *SERVB = 13;
-  *SERVC = 13;
-  *SERVD = 13;
+  *SA = SERVA;
+  *SB = SERVB;
+  *SC = SERVC;
+  *SD = SERVD;
 }

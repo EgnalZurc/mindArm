@@ -71,15 +71,14 @@ int loadTemperature (int TMP)
 
 int readTemp(int PIN)
 {
-  int measure = 0;
+  float voltaje, temp;
 
   //Initialise BUS
   if( spiSetup() != 0 ) return -3;
 
-  measure = myAnalogRead(PIN);
+  voltaje = myAnalogRead(PIN)/1024.0;
+  temp = voltaje*500-273.15;
 
-  printf("Temperature in sensor %d: %d\n", &PIN, &measure);
-
-  return measure;
+  return temp;
 }
 
