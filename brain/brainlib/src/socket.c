@@ -7,6 +7,10 @@ int initSocket()
   struct sockaddr_in serv_addr, cli_addr;
   int  n;
 
+  currentMovement = 0;
+  if(initMovements(movements, movementsList) != 0)
+    return -1;
+
   /* First call to socket() function */
   sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
@@ -56,18 +60,34 @@ int initSocket()
     {
       if (strcmp(buffer,"brain") == 0)
       {
-        printf("New connection!!\n");
+        printf("New request!!\n");
 
-        n = write(newsockfd,"2101",4);
+        switch(recogniseMovement(movements, movementsList, currentMovement))
+        {
+          case 0:
+            n = write(newsockfd,"0000",4);
+          break;
+          case 3:
+            n = write(newsockfd,"0010",4);
+          break;
+          case 27:
+            n = write(newsockfd,"1000",4);
+          break;
+          case 67:
+            n = write(newsockfd,"2111",4);
+          break;
+          default:
+            n = write(newsockfd,"1111",4);
+          break;
+        }
+        currentMovement++;
 
         if (n < 0) 
         {
           perror("ERROR writing to socket");
         }
-        sleep (1000);
       }
     }
-
   }
   return 0;
 }
