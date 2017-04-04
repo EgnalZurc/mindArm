@@ -51,12 +51,24 @@ int loadServoMotor (int SERV)
   return 0 ;
 }
 
-void writeServo(int PIN, int str)
+void writehServo(int PIN, int str)
 {
+  printf("Moving serv%d %d\n", PIN, str);
   pinMode(PIN, PWM_OUTPUT);
   pwmSetMode(PWM_MODE_MS);
   pwmSetClock (1920); //clock at 50Hz
   pwmSetRange (200) ;
 
-  pwmWrite(PIN, str);
+  pwmWrite(PIN, getPWMPot(str));
+
 }
+
+void writeServo(int PIN, int str)
+{
+  printf("Moving serv%d %d\n", PIN, str);
+  softPwmCreate(PIN, 0, 215); //setup software pwm pin
+  for(::){
+  softPwmWrite (PIN, getPWMPot(str));
+  }
+}
+

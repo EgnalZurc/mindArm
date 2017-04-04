@@ -8,7 +8,7 @@
 
 #include <wiringPi.h>
 
-void readTrace (int *SA, int *SB, int *SC, int *SD)
+void readTraceSocket (int *SA, int *SB, int *SC, int *SD)
 {
 
   int sockfd, portno, n;
@@ -68,4 +68,61 @@ void readTrace (int *SA, int *SB, int *SC, int *SD)
   if(buffer[3] == '0') *SD = -1;
   else if(buffer[3] == '1') *SD = 0;
   else *SD = 1;
+}
+
+void readTrace (float trace[14])
+{
+  int i;
+
+  for(i = 0 ; i < 14 ; i++)
+    trace[i] = 0;
+}
+
+void readLibTrace (int line, float *v1, float *v2, float *v3, float *v4, float *v5, float *v6, float *v7, float *v8, float *v9, float *v10, float *v11, float *v12, float *v13, float *v14)
+{
+  int i, j;
+  FILE *fp;
+
+  printf("Searching for movement %d\n", line);
+
+  fp = fopen("./etc/Movements.tr", "r");
+  if (fp == NULL)
+  { 
+    printf("Can't open file ./etc/Movements.tr\nEXITTING\n");
+    return;
+  }
+
+  for(i = 0 ; i < 9999999 ; i ++)
+  { 
+    //printf("%d\n", i);
+    if(i == line)
+    {
+      printf("Encontrado!\n");
+      fscanf(fp,"%f",v1);
+      fscanf(fp,"%f",v2);
+      fscanf(fp,"%f",v3);
+      fscanf(fp,"%f",v4);
+      fscanf(fp,"%f",v5);
+      fscanf(fp,"%f",v6);
+      fscanf(fp,"%f",v7);
+      fscanf(fp,"%f",v8);
+      fscanf(fp,"%f",v9);
+      fscanf(fp,"%f",v10);
+      fscanf(fp,"%f",v11);
+      fscanf(fp,"%f",v12);
+      fscanf(fp,"%f",v13);
+      fscanf(fp,"%f",v14);
+      break;
+    }
+    else
+    {
+      for(j = 0 ; j < 14 ; j ++)
+      { 
+        //printf("%d\n", j);
+        fscanf(fp,"%f",v1);
+      }
+    }
+  }
+
+  fclose(fp);
 }

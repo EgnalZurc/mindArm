@@ -3,13 +3,11 @@
 
 struct movement
 {
-  float serva;
-  float servb;
-  float servc;
-  float servd;
+  float trace[14];
+  int movementID;
 };
 
 int initMovements(struct movement movements[], struct movement movementsList[]);
-int recogniseMovement(struct movement movements[], struct movement movementsList[], int currentMovement);
+void recogniseMovement(struct movement movements[], struct movement movementsList[], int currentMovement);
 
 int compareMovements(struct movement mov1, struct movement mov2);

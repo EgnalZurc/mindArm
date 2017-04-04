@@ -20,6 +20,8 @@
 #define PRESSURE    3
 #define TEMPERATURE 4
 #define LED         5
+#define MOVEMENT    6
+
 
 int myFd;
 int channel;
@@ -109,9 +111,6 @@ void testServo()
   pwmSetMode(PWM_MODE_MS); 
   pwmSetClock (1920); //clock at 50Hz
   pwmSetRange (200) ;
-  //pwmSetClock (1); //clock at 50Hz
-  //pwmSetRange (1) ;
-
 
   for (;;)
   {
@@ -302,6 +301,29 @@ void testLED()
   }
 }
 
+void testMovement()
+{
+  int serva, servb, servc, servd;
+
+  softPwmCreate(1, 0, 215); //setup software pwm pin
+  softPwmCreate(4, 0, 215); //setup software pwm pin
+  softPwmCreate(5, 0, 215); //setup software pwm pin
+  softPwmCreate(6, 0, 215); //setup software pwm pin
+  for (;;)
+  {
+    printf("Select position: ");
+    scanf("%d %d %d %d", &serva, &servb, &servc, &servd);
+    printf("\n");
+
+    softPwmWrite (4, serva);
+    softPwmWrite (1, servb);
+    softPwmWrite (5, servc);
+    softPwmWrite (6, servd);
+  }
+
+
+}
+
 int main(int argc, char *argv[])
 {
 
@@ -309,7 +331,7 @@ int main(int argc, char *argv[])
 
   if (argc < 2)
   {
-    printf("Usage: program + device to test\nSERVO = 1\nSERVOSOFT = 2\nPRESSURE = 3\nTEMPERATURE = 4\nLED = 5\n");
+    printf("Usage: program + device to test\nSERVO = 1\nSERVOSOFT = 2\nPRESSURE = 3\nTEMPERATURE = 4\nLED = 5\nMOVEMENTS = 6\n");
     return (1) ;
   }
   device = atoi(argv[1]);
@@ -336,6 +358,9 @@ int main(int argc, char *argv[])
       break;
     case LED:
       testLED();
+      break;
+    case MOVEMENT:
+      testMovement();
       break;
     default:
       break;
