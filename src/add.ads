@@ -1,11 +1,14 @@
-with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Text_IO;             use Ada.Text_IO;
 with Ada.Long_Float_Text_IO;
-with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
-with Ada.Strings.Fixed; use Ada.Strings.Fixed;
-with Ada.Real_Time; use Ada.Real_Time;
+with Ada.Strings.Unbounded;   use Ada.Strings.Unbounded;
+with Ada.Strings.Fixed;       use Ada.Strings.Fixed;
+with Ada.Real_Time;           use Ada.Real_Time;
 with Ada.Calendar; 
 with Ada.Calendar.Formatting; use Ada.Calendar.Formatting;
 with Ada.Calendar.Time_Zones; use Ada.Calendar.Time_Zones;
+with GNAT.Sockets;            use GNAT.Sockets;
+
+with Ada.Streams;
 
 package add is
 
@@ -14,11 +17,11 @@ package add is
 ----------------------------------------------------------------------- 
 
 -- Task Priority
-MAX:        constant integer := 5;
-CONTROLP:   constant integer := 4;
-SENSORHIGH: constant integer := 3;
-SENSORLOW:  constant integer := 2;
-DISPLAYP:   constant integer := 1;
+UPDTTRC:    constant Integer := 5;
+CONTROLP:   constant Integer := 4;
+SENSORHIGH: constant Integer := 3;
+SENSORLOW:  constant Integer := 2;
+DISPLAYP:   constant Integer := 1;
 
 -- PIN numbers
 type PIN is new integer range 0 .. 29;
@@ -43,6 +46,10 @@ LEDPRESC:   constant PIN := 0;
 LEDPRESD:   constant PIN := 0;
 
 
+-- Working mode! 0 = Simulator, 1 = Helmet reader.
+
+WORKING_MODE : constant Integer := 1;
+
 -- Objets values
 type Temp_Value is new integer range -50..125; -- -50ºC a 125º
 
@@ -60,9 +67,11 @@ Big_Bang : constant Ada.Real_Time.Time := Ada.Real_Time.Clock;
 ------------- Trace Objects
 ----------------------------------------------------------------------- 
 
-MAX_ENGINE: constant Integer := 18;
-MIN_ENGINE: constant Integer := 0;
+ACC_ENGINE: constant Integer := 2;
+MAX_ENGINE: constant Integer := 17;
+MIN_ENGINE: constant Integer := 1;
 Number_Engines: constant integer := 4;
+MAX_ERROR:  constant Long_float := 0.0001;
 
 type Engine_Value is new integer range MIN_ENGINE..MAX_ENGINE;
 type Trace_Object is array (0 .. Number_Engines) of Engine_Value;
@@ -78,6 +87,7 @@ type Movement is
      end record;
 
 type Movement_List is array (1..81) of Movement;
+type Emulating_Movement_List is array (1..81) of Movement;
 
 -----------------------------------------------------------------------
 ------------- Hardware Tasks
@@ -88,17 +98,17 @@ function ReadPresSensor (pres : PIN) return Pres_Value;
 Pragma Import (C, ReadTempSensor, "readTemp");
 Pragma Import (C, ReadPresSensor, "readPres");
 
-procedure ReadTrace (Current_Movement : out Trace);
+procedure ReadTrace (Line : in Integer; V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13, V14 : out Long_Float);
 Pragma Import (C, ReadTrace, "readTrace");
-procedure ReadLibTrace (Line : in Integer; V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13, V14 : out Float);
-Pragma Import (C, ReadLibTrace, "readLibTrace");
 
 procedure WriteLed (led : in PIN; str : in Led_Value);
-procedure WriteServo (serv : in PIN; str : in Engine_Value);
+procedure WriteServo (serva, servb, servc, servd : in Engine_Value);
+procedure Movement_Handler;
 Pragma Import (C, WriteLed, "writeLed");
 Pragma Import (C, WriteServo, "writeServo");
+Pragma Import (C, Movement_Handler, "movementHandler");
 
-procedure PrintTime;
+function PrintTime return Integer;
 Pragma Import (C, PrintTime, "printTime");
 
 -----------------------------------------------------------------------
@@ -106,7 +116,7 @@ Pragma Import (C, PrintTime, "printTime");
 -----------------------------------------------------------------------   
 
 Task UpdateTrace is
-  pragma Priority (MAX);
+  pragma Priority (UPDTTRC);
 end UpdateTrace;
 Task Control is
   pragma Priority (CONTROLP);
@@ -150,17 +160,20 @@ end PresAObj ;
 
 -----------------------------------------------------------------------
 Protected MovementsObj is
-pragma Priority (MAX);
+pragma Priority (UPDTTRC);
 procedure InitMovements;
 function MatchMovement (Mov: Trace) return Integer;
+procedure ReadLibTrace (Line : in Integer; V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13, V14 : out Long_Float);
 private
   Movements_List: Movement_List;
+  Emulating_Movements_List: Movement_List;
   Input_File    : File_Type;
   voltaje       : Long_Float;
 end MovementsObj;
 
+-----------------------------------------------------------------------
 Protected ControlObj is
-pragma Priority (MAX);
+pragma Priority (UPDTTRC);
 function GetControl return Control_Object;
 procedure SetControl (CtrlOb: Control_Object);
 private

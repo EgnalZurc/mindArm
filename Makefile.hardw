@@ -2,6 +2,7 @@ SRC=src/hardw
 OUT=out
 OBJS=$(OUT)/OBJS
 GCC=gcc -c
+GCO=gcc
 
 all:
 	mkdir -p  $(OUT)
@@ -12,4 +13,5 @@ all:
 	$(GCC) $(SRC)/servoMotor.c -o $(OBJS)/servoMotor.o -lwiringPi
 	$(GCC) $(SRC)/temperature.c -o $(OBJS)/temperature.o -lwiringPi
 	$(GCC) $(SRC)/trace.c -o $(OBJS)/trace.o -lwiringPi
+	$(GCO) $(SRC)/movGenerator.c -o $(OUT)/MovMaker -lwiringPi
 	echo "HARDWARE libs compiled OK!!!"

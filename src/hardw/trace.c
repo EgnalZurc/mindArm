@@ -1,128 +1,58 @@
 #include <stdio.h>
 #include <errno.h>
 
-#include <netdb.h>
-#include <netinet/in.h>
-
-#include <string.h>
-
 #include <wiringPi.h>
+#include <gertboard.h>
 
-void readTraceSocket (int *SA, int *SB, int *SC, int *SD)
+int myFd;
+
+//BUS init, always required
+int configSPI (int SPICHAN)
 {
-
-  int sockfd, portno, n;
-  struct sockaddr_in server;
-  char buffer[256];
-
-  portno = 30000;
-
-  /* Create a socket point */
-  sockfd = socket(AF_INET, SOCK_STREAM, 0);
-
-  if (sockfd < 0) {
-    perror("ERROR opening socket");
+  if ((myFd = wiringPiSPISetup (SPICHAN, 1000000)) < 0)
+  {
+    printf ("Can't open the SPI bus: %s\n", strerror (errno)) ;
+    return -1;
   }
-
-  server.sin_addr.s_addr = inet_addr("127.0.0.1");
-  server.sin_family = AF_INET;
-  server.sin_port = htons( portno );
-
-  /* Now connect to the server */
-  if (connect(sockfd, (struct sockaddr*)&server, sizeof(server)) < 0) {
-    perror("ERROR connecting");
-  }
-
-  /* Now ask for a message from the user, this message
-   *       * will be read by server
-   *          */
-
-  bzero(buffer,256);
-  strcpy(buffer, "brain");
-
-  /* Send message to the server */
-  n = write(sockfd, buffer, strlen(buffer));
-  if (n < 0) {
-    perror("ERROR writing to socket");
-  }
-
-  /* Now read server response */
-  bzero(buffer,256);
-  n = read(sockfd, buffer, 255);
-  if (n < 0) {
-    perror("ERROR reading from socket");
-  }
-
-  if(buffer[0] == '0') *SA = -1;
-  else if(buffer[0] == '1') *SA = 0;
-  else *SA = 1;
-
-  if(buffer[1] == '0') *SB = -1;
-  else if(buffer[1] == '1') *SB = 0;
-  else *SB = 1;
-
-  if(buffer[2] == '0') *SC = -1;
-  else if(buffer[2] == '1') *SC = 0;
-  else *SC = 1;
-
-  if(buffer[3] == '0') *SD = -1;
-  else if(buffer[3] == '1') *SD = 0;
-  else *SD = 1;
+  return 0;
 }
 
-void readTrace (float trace[14])
+//Analog Read
+int customAnalogRead(int analogChannel, int SPICHAN)
 {
-  int i;
-
-  for(i = 0 ; i < 14 ; i++)
-    trace[i] = 0;
+  if(analogChannel<0 || analogChannel>7)
+    return -1;
+  unsigned char buffer[3] = {1}; // start bit
+  buffer[1] = (analogChannel+8) << 4;
+  wiringPiSPIDataRW(SPICHAN, buffer, 3);
+  return ( (buffer[1] & 3 ) << 8 ) + buffer[2]; // get last 10 bits
 }
 
-void readLibTrace (int line, float *v1, float *v2, float *v3, float *v4, float *v5, float *v6, float *v7, float *v8, float *v9, float *v10, float *v11, float *v12, float *v13, float *v14)
+
+
+void readTrace (int line, float *v1, float *v2, float *v3, float *v4, float *v5, float *v6, float *v7, float *v8, float *v9, float *v10, float *v11, float *v12, float *v13, float *v14)
 {
-  int i, j;
-  FILE *fp;
+  float voltaje, temp;
 
-  printf("Searching for movement %d\n", line);
+  //Initialise BUS
+  if( configSPI(0) != 0 ) return ;
 
-  fp = fopen("./etc/Movements.tr", "r");
-  if (fp == NULL)
-  { 
-    printf("Can't open file ./etc/Movements.tr\nEXITTING\n");
-    return;
-  }
+  *v1 = customAnalogRead(2, 0)/1024.0;
+  *v2 = customAnalogRead(3, 0)/1024.0;
+  *v3 = customAnalogRead(4, 0)/1024.0;
+  *v4 = customAnalogRead(5, 0)/1024.0;
+  *v5 = customAnalogRead(6, 0)/1024.0;
+  *v6 = customAnalogRead(7, 0)/1024.0;
 
-  for(i = 0 ; i < 9999999 ; i ++)
-  { 
-    //printf("%d\n", i);
-    if(i == line)
-    {
-      printf("Encontrado!\n");
-      fscanf(fp,"%f",v1);
-      fscanf(fp,"%f",v2);
-      fscanf(fp,"%f",v3);
-      fscanf(fp,"%f",v4);
-      fscanf(fp,"%f",v5);
-      fscanf(fp,"%f",v6);
-      fscanf(fp,"%f",v7);
-      fscanf(fp,"%f",v8);
-      fscanf(fp,"%f",v9);
-      fscanf(fp,"%f",v10);
-      fscanf(fp,"%f",v11);
-      fscanf(fp,"%f",v12);
-      fscanf(fp,"%f",v13);
-      fscanf(fp,"%f",v14);
-      break;
-    }
-    else
-    {
-      for(j = 0 ; j < 14 ; j ++)
-      { 
-        //printf("%d\n", j);
-        fscanf(fp,"%f",v1);
-      }
-    }
-  }
+  //Initialise BUS
+  if( configSPI(1) != 0 ) return ;
 
-  fclose(fp);
+  *v7 = customAnalogRead(0, 1)/1024.0;
+  *v8 = customAnalogRead(1, 1)/1024.0;
+  *v9 = customAnalogRead(2, 1)/1024.0;
+  *v10 = customAnalogRead(3, 1)/1024.0;
+  *v11 = customAnalogRead(4, 1)/1024.0;
+  *v12 = customAnalogRead(5, 1)/1024.0;
+  *v13 = customAnalogRead(6, 1)/1024.0;
+  *v14 = customAnalogRead(7, 1)/1024.0;
 }

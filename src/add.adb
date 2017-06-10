@@ -58,43 +58,63 @@ Protected body MovementsObj is
         Ada.Long_Float_Text_IO.Get (File => Input_File, Item => voltaje);
         Movements_List(I).Movement_Trace(J) := voltaje;
       end loop;
-        --Ada.Text_IO.Put("Movement " & Integer'image(I) & " ");
-      --for J in 1..14 loop
-        --Ada.Text_IO.put(" " & Long_Float'image(Movements_List(I).Movement_Trace(J)));
-      --end loop;
-        --Ada.Text_IO.put_line(" ");
     end loop;
-  Close (File => Input_File); 
+    Close (File => Input_File); 
 
-
+    if WORKING_MODE = 0 then
+      Open (File => Input_File, Mode => In_File, Name => "etc/Movements.tr");
+      Ada.Text_IO.Put_Line ("Loading Emulating Movements List...");
+      for I in 1..81 loop
+        for J in 1..14 loop
+          Ada.Long_Float_Text_IO.Get (File => Input_File, Item => voltaje);
+          Emulating_Movements_List(I).Movement_Trace(J) := voltaje;
+        end loop;
+      end loop;
+      Close (File => Input_File); 
+    end if;
+    Ada.Text_IO.Put_Line ("Movements Loaded Correctly!!!");
   end InitMovements;
 
   function MatchMovement (Mov: Trace) return Integer is
-    I : Integer;
   begin
-    I := 1;
     for I in 1..81 loop
-        -- Ada.Text_IO.put_line("Comparing " & Long_Float'image(Mov(1)) & " with " & Long_Float'image(Movements_List(I).Movement_Trace(1)));
-       if (abs(Mov(1) - Movements_List(I).Movement_Trace(1)) < Long_Float(0.0001)) AND
-          (abs(Mov(2) - Movements_List(I).Movement_Trace(2)) < Long_Float(0.0001)) AND
-          (abs(Mov(3) - Movements_List(I).Movement_Trace(3)) < Long_Float(0.0001)) AND
-          (abs(Mov(4) - Movements_List(I).Movement_Trace(4)) < Long_Float(0.0001)) AND
-          (abs(Mov(5) - Movements_List(I).Movement_Trace(5)) < Long_Float(0.0001)) AND
-          (abs(Mov(6) - Movements_List(I).Movement_Trace(6)) < Long_Float(0.0001)) AND
-          (abs(Mov(7) - Movements_List(I).Movement_Trace(7)) < Long_Float(0.0001)) AND
-          (abs(Mov(8) - Movements_List(I).Movement_Trace(8)) < Long_Float(0.0001)) AND
-          (abs(Mov(9) - Movements_List(I).Movement_Trace(9)) < Long_Float(0.0001)) AND
-          (abs(Mov(10) - Movements_List(I).Movement_Trace(10)) < Long_Float(0.0001)) AND
-          (abs(Mov(11) - Movements_List(I).Movement_Trace(11)) < Long_Float(0.0001)) AND
-          (abs(Mov(12) - Movements_List(I).Movement_Trace(12)) < Long_Float(0.0001)) AND
-          (abs(Mov(13) - Movements_List(I).Movement_Trace(13)) < Long_Float(0.0001)) AND
-          (abs(Mov(14) - Movements_List(I).Movement_Trace(14)) < Long_Float(0.0001)) then
-          Ada.Text_IO.put_line("Movement " & Integer'Image(I));
+       if (abs(Mov(1) - Movements_List(I).Movement_Trace(1)) < MAX_ERROR) AND
+          (abs(Mov(2) - Movements_List(I).Movement_Trace(2)) < MAX_ERROR) AND
+          (abs(Mov(3) - Movements_List(I).Movement_Trace(3)) < MAX_ERROR) AND
+          (abs(Mov(4) - Movements_List(I).Movement_Trace(4)) < MAX_ERROR) AND
+          (abs(Mov(5) - Movements_List(I).Movement_Trace(5)) < MAX_ERROR) AND
+          (abs(Mov(6) - Movements_List(I).Movement_Trace(6)) < MAX_ERROR) AND
+          (abs(Mov(7) - Movements_List(I).Movement_Trace(7)) < MAX_ERROR) AND
+          (abs(Mov(8) - Movements_List(I).Movement_Trace(8)) < MAX_ERROR) AND
+          (abs(Mov(9) - Movements_List(I).Movement_Trace(9)) < MAX_ERROR) AND
+          (abs(Mov(10) - Movements_List(I).Movement_Trace(10)) < MAX_ERROR) AND
+          (abs(Mov(11) - Movements_List(I).Movement_Trace(11)) < MAX_ERROR) AND
+          (abs(Mov(12) - Movements_List(I).Movement_Trace(12)) < MAX_ERROR) AND
+          (abs(Mov(13) - Movements_List(I).Movement_Trace(13)) < MAX_ERROR) AND
+          (abs(Mov(14) - Movements_List(I).Movement_Trace(14)) < MAX_ERROR) then
          return I;
        end if;
     end loop;
     return 90;
   end MatchMovement;
+
+  procedure ReadLibTrace (Line : in Integer; V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13, V14 : out Long_Float) is
+  begin
+    V1  := Emulating_Movements_List(Line).Movement_Trace(1);
+    V2  := Emulating_Movements_List(Line).Movement_Trace(2);
+    V3  := Emulating_Movements_List(Line).Movement_Trace(3);
+    V4  := Emulating_Movements_List(Line).Movement_Trace(4);
+    V5  := Emulating_Movements_List(Line).Movement_Trace(5);
+    V6  := Emulating_Movements_List(Line).Movement_Trace(6);
+    V7  := Emulating_Movements_List(Line).Movement_Trace(7);
+    V8  := Emulating_Movements_List(Line).Movement_Trace(8);
+    V9  := Emulating_Movements_List(Line).Movement_Trace(9);
+    V10 := Emulating_Movements_List(Line).Movement_Trace(10);
+    V11 := Emulating_Movements_List(Line).Movement_Trace(11);
+    V12 := Emulating_Movements_List(Line).Movement_Trace(12);
+    V13 := Emulating_Movements_List(Line).Movement_Trace(13);
+    V14 := Emulating_Movements_List(Line).Movement_Trace(14);
+  end ReadLibTrace;
 
 end MovementsObj;
 
@@ -119,24 +139,19 @@ end ControlObj;
 
 Task body UpdateTempSensor is
   Next_Time : Time;
-  Periodo : Duration := Duration(5);
   Current_T: Temp_Value;
-
+  Periodo : Duration := Duration(2);
 begin
   Next_Time := Big_Bang + To_Time_Span(Periodo);
   loop
-    PrintTime;
-    Ada.Text_IO.Put_Line ("Measuring Temperature...");
 
     Current_T := ReadTempSensor (TEMPA);
     TempAObj.SetTemp (Current_T);
-    Ada.Text_IO.Put_Line (" ------ Temperature sensor" & SPIPIN'image(TEMPA) & ":" & Temp_Value'image(Current_T));
+    --Ada.Text_IO.Put_Line (" ------ Temperature sensor" & SPIPIN'image(TEMPA) & ":" & Temp_Value'image(Current_T));
     Current_T := ReadTempSensor (TEMPB);
     TempBObj.SetTemp (Current_T);
-    Ada.Text_IO.Put_Line (" ------ Temperature sensor" & SPIPIN'image(TEMPB) & ":" & Temp_Value'image(Current_T));
+    --Ada.Text_IO.Put_Line (" ------ Temperature sensor" & SPIPIN'image(TEMPB) & ":" & Temp_Value'image(Current_T));
 
-    PrintTime;
-    Ada.Text_IO.Put_Line ("Temperature Measured!!!");
     delay until Next_Time;
     Next_Time := Next_Time + To_Time_Span(Periodo);
   end loop;
@@ -145,21 +160,16 @@ end UpdateTempSensor;
 ---------------------------------------------------------------------
 Task body UpdatePresSensor is
   Next_Time : Time;
-  Periodo : Duration := Duration(5);
   Current_P: Pres_Value;
-
+  Periodo   : Duration := Duration(4);
 begin
   Next_Time := Big_Bang + To_Time_Span(Periodo);
   loop
-    PrintTime;
-    Ada.Text_IO.Put_Line ("Measuring Pressure...");
 
     Current_P := ReadPresSensor (PRESA);
     PresAObj.SetPresion (Current_P);
-    Ada.Text_IO.Put_Line (" ------ Pressure sensor" & PIN'image(PRESA) & ":" & Pres_Value'image(Current_P));
+    --Ada.Text_IO.Put_Line (" ------ Pressure sensor" & PIN'image(PRESA) & ":" & Pres_Value'image(Current_P));
 
-    PrintTime;
-    Ada.Text_IO.Put_Line ("Pressure Measured!!!");
     delay until Next_Time;
     Next_Time := Next_Time + To_Time_Span(Periodo);
   end loop;
@@ -168,22 +178,22 @@ end UpdatePresSensor;
 -----------------------------------------------------------------------
 Task body UpdateTrace is
   Next_Time : Time;
-  Periodo   : Duration := Duration(1.5);
+  Periodo : Duration := Duration(1);
   Current_M : Trace;
-  V1        : Float;
-  V2        : Float;
-  V3        : Float;
-  V4        : Float;
-  V5        : Float;
-  V6        : Float;
-  V7        : Float;
-  V8        : Float;
-  V9        : Float;
-  V10       : Float;
-  V11       : Float;
-  V12       : Float;
-  V13       : Float;
-  V14       : Float;
+  V1        : Long_Float;
+  V2        : Long_Float;
+  V3        : Long_Float;
+  V4        : Long_Float;
+  V5        : Long_Float;
+  V6        : Long_Float;
+  V7        : Long_Float;
+  V8        : Long_Float;
+  V9        : Long_Float;
+  V10       : Long_Float;
+  V11       : Long_Float;
+  V12       : Long_Float;
+  V13       : Long_Float;
+  V14       : Long_Float;
   Current_T : Control_Object;
   Line      : Integer;
 
@@ -192,35 +202,30 @@ begin
 
   MovementsObj.InitMovements;
 
-  Line := 0;
+  Line := 1;
   loop
-    PrintTime;
 
-    Ada.Text_IO.Put_Line ("Reading new movement...");
-    ReadLibTrace (Line, V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13, V14);
-    --Ada.Text_IO.Put_Line(Float'Image(V1));
-    
-    Current_M(1) := Long_Float(V1);
-    Current_M(2) := Long_Float(V2);
-    Current_M(3) := Long_Float(V3);
-    Current_M(4) := Long_Float(V4);
-    Current_M(5) := Long_Float(V5);
-    Current_M(6) := Long_Float(V6);
-    Current_M(7) := Long_Float(V7);
-    Current_M(8) := Long_Float(V8);
-    Current_M(9) := Long_Float(V9);
+    if WORKING_MODE = 0 then
+      MovementsObj.ReadLibTrace (Line, V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13, V14);
+    else 
+      ReadTrace (Line, V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13, V14);
+    end if;
+    Current_M(1)  := Long_Float(V1);
+    Current_M(2)  := Long_Float(V2);
+    Current_M(3)  := Long_Float(V3);
+    Current_M(4)  := Long_Float(V4);
+    Current_M(5)  := Long_Float(V5);
+    Current_M(6)  := Long_Float(V6);
+    Current_M(7)  := Long_Float(V7);
+    Current_M(8)  := Long_Float(V8);
+    Current_M(9)  := Long_Float(V9);
     Current_M(10) := Long_Float(V10);
     Current_M(11) := Long_Float(V11);
     Current_M(12) := Long_Float(V12);
     Current_M(13) := Long_Float(V13);
     Current_M(14) := Long_Float(V14);
-    
-    --for I in 1..14 loop
-      --Ada.Text_IO.put(" " & Long_Float'image(Current_M(I)));
-    --end loop;
-    --Ada.Text_IO.Put_Line(" ");
 
-    Ada.Text_IO.Put_Line ("Matching movement...");
+    
     case MovementsObj.MatchMovement (Current_M) is
       when 1 =>
         Current_T(0) :=  0;
@@ -630,10 +635,8 @@ begin
     end case;
 
     ControlObj.SetControl (Current_T);
-    Ada.Text_IO.Put_Line (" ------ Trace:" & Control_Value'image(Current_T(0)) & Control_Value'image(Current_T(1)) & Control_Value'image(Current_T(2)) & Control_Value'image(Current_T(3)));
+    --Ada.Text_IO.Put_Line (" ------ Trace:" & Control_Value'image(Current_T(0)) & Control_Value'image(Current_T(1)) & Control_Value'image(Current_T(2)) & Control_Value'image(Current_T(3)));
 
-    PrintTime;
-    Ada.Text_IO.Put_Line ("Movement read!!!");
     delay until Next_Time;
     Next_Time := Next_Time + To_Time_Span(Periodo);
     Line := Line + 1;
@@ -643,7 +646,7 @@ end UpdateTrace;
 -----------------------------------------------------------------------
 Task body Display is
   Next_Time : Time;
-  Periodo   : Duration := Duration(5);
+  Periodo : Duration := Duration(3);
   Current_T : Temp_Value;
   Current_P : Pres_Value;
   Led_TempA : integer := 0;
@@ -656,8 +659,6 @@ Task body Display is
 begin
   Next_Time := Big_Bang + To_Time_Span(Periodo);
   loop
-    PrintTime;
-    Ada.Text_IO.Put_Line ("Updating Display...");
 
     --Se enciende warning si detecta más de 80º
     Current_T := TempAObj.GetTemp;
@@ -665,13 +666,11 @@ begin
       if Led_TempA = 0 then
         Led_TempA := 1;
         WriteLed(LEDTEMPA, 1);
-        Ada.Text_IO.Put_Line (" ------ Temperature LED" & PIN'image(LEDTEMPA) & " ON");
       end if;
     else
       if Led_TempA = 1 then
         Led_TempA := 0;
         WriteLed(LEDTEMPA, 0);
-        Ada.Text_IO.Put_Line (" ------ Temperature LED" & PIN'image(LEDTEMPA) & " OFF");
       end if;
     end if;
 
@@ -680,35 +679,28 @@ begin
       if Led_TempB = 0 then
         Led_TempB := 1;
         WriteLed(LEDTEMPB, 1);
-        Ada.Text_IO.Put_Line (" ------ Temperature LED" & PIN'image(LEDTEMPB) & " ON");
       end if;
     else
       if Led_TempB = 1 then
         Led_TempB := 0;
         WriteLed(LEDTEMPB, 0);
-        Ada.Text_IO.Put_Line (" ------ Temperature LED" & PIN'image(LEDTEMPB) & " OFF");
       end if;
     end if;
 
     --Se enciende warning si detecta demasiada presión
-    Current_P := 0;
-    Current_P := Current_P + PresAObj.GetPres;
+    Current_P := PresAObj.GetPres;
     if Current_P >= MAX_PRES then
       if Led_PresA = 0 then
         Led_PresA := 1;
         WriteLed(LEDPRESA, 1);
-        Ada.Text_IO.Put_Line (" ------ Pressure LED" & PIN'image(LEDPRESA) & " ON");
       end if;
     else 
       if Led_PresA = 1 then
         Led_PresA := 0;
         WriteLed(LEDPRESA, 0);
-        Ada.Text_IO.Put_Line (" ------ Pressure LED" & PIN'image(LEDPRESA) & " OFF");
       end if;
     end if;
 
-    PrintTime;
-    Ada.Text_IO.Put_Line ("Display Updated!!!");
   delay until Next_Time;
   Next_Time := Next_Time + To_Time_Span(Periodo);
 end loop;
@@ -717,7 +709,7 @@ end Display;
 -----------------------------------------------------------------------
 Task body Control is
   Next_Time : Time;
-  Periodo   : Duration := 1.0;
+  Periodo   : Duration := Duration(1);
   PresFlag  : Integer := 0;
 
   Current_Control : Control_Object;
@@ -731,36 +723,51 @@ Task body Control is
 
   Current_PA      : Pres_Value;
 
+  --Socket variables
+  Socket  : Socket_Type;
+  Address : Sock_Addr_Type := (Family_Inet, Inet_Addr( "127.0.0.1" ), 30001);
+  Channel : Stream_Access;
+  Buffer  : String (1 .. 256);
+  
+  Current_Char  : Integer;
+  Aux           : Integer;
+
 begin
   Next_Time := Big_Bang + To_Time_Span(Periodo);
   Last_TA := Temp_Value(0);
   Last_TB := Temp_Value(0);
-  Current_Trace(0)  := 9;
-  Current_Trace(1)  := 9;
-  Current_Trace(2)  := 9;
-  Current_Trace(3)  := 9;
-  Last_Control(0)   := 0;
-  Last_Control(1)   := 0;
-  Last_Control(2)   := 0;
-  Last_Control(3)   := 0;
+  Current_Trace(0)  := 10;
+  Current_Trace(1)  := 10;
+  Current_Trace(2)  := 10;
+  Current_Trace(3)  := 10;
+  Last_Control(0)   := 1;
+  Last_Control(1)   := 1;
+  Last_Control(2)   := 1;
+  Last_Control(3)   := 1;
+
+  GNAT.Sockets.Initialize;  -- initialize a specific package
+
   loop
-    PrintTime;
-    Ada.Text_IO.Put_Line ("Updating arm position...");
+
     Current_Control := ControlObj.GetControl;
     Current_TA := TempAObj.GetTemp;
     Current_TB := TempBObj.GetTemp;
 
     Current_PA := PresAObj.GetPres;
 
+    Current_Char := 1;
+
     --Si se excede la presión y el movimiento actual hace
     --que esta siga incrementando, se invierte el movimiento
     if Current_PA >= MAX_PRES then
       PresFlag := 1;
+    else
+      PresFlag := 0;
     end if;
 
     --Si se excede la temperatura y el movimiento actual hace
     --que esta siga incrementando, se invierte el movimiento
-    if Current_TA > MAX_TEMP AND PresFlag = 1 then
+    if Current_TA > MAX_TEMP AND PresFlag = 0 then
 
       if Current_TA > LAST_TA then
         if Last_Control(1) = 1 then 
@@ -776,7 +783,7 @@ begin
 
     end if;
 
-    if Current_TB > MAX_TEMP AND PresFlag = 1 then
+    if Current_TB > MAX_TEMP AND PresFlag = 0 then
 
       if Current_TB > LAST_TB then
         if Last_Control(2) = 1 then 
@@ -794,43 +801,65 @@ begin
 
     --Se establece el voltaje a cada motor
 
-    if Current_Control(0) = Control_Value(0) and Current_Trace(0) > Engine_Value(MIN_ENGINE+1) then
+    if Current_Control(0) = Control_Value(0) and Current_Trace(0) > Engine_Value(MIN_ENGINE) then
       Current_Trace(0)  := Current_Trace(0) - Engine_Value(1);
     elsif Current_Control(0) = Control_Value(2) and Current_Trace(0) < Engine_Value(MAX_ENGINE) then
       Current_Trace(0)  := Current_Trace(0) + Engine_Value(1);
     end if;
 
-    if Current_Control(1) = Control_Value(0) and Current_Trace(1) > Engine_Value(MIN_ENGINE+1) then
+    if Current_Control(1) = Control_Value(0) and Current_Trace(1) > Engine_Value(MIN_ENGINE) then
       Current_Trace(1)  := Current_Trace(1) - Engine_Value(1);
     elsif Current_Control(1) = Control_Value(2) and Current_Trace(1) < Engine_Value(MAX_ENGINE) then
       Current_Trace(1)  := Current_Trace(1) + Engine_Value(1);
     end if;
 
-    if Current_Control(2) = Control_Value(0) and Current_Trace(2) > Engine_Value(MIN_ENGINE+1) then
+    if Current_Control(2) = Control_Value(0) and Current_Trace(2) > Engine_Value(MIN_ENGINE) then
       Current_Trace(2)  := Current_Trace(2) - Engine_Value(1);
     elsif Current_Control(2) = Control_Value(2) and Current_Trace(2) < Engine_Value(MAX_ENGINE) then
       Current_Trace(2)  := Current_Trace(2) + Engine_Value(1);
     end if;
 
-    if Current_Control(3) = Control_Value(0) and Current_Trace(3) > Engine_Value(MIN_ENGINE+1) then
+    if Current_Control(3) = Control_Value(0) and Current_Trace(3) > Engine_Value(MIN_ENGINE) then
       Current_Trace(3)  := Current_Trace(3) - Engine_Value(1);
     elsif Current_Control(3) = Control_Value(2) and Current_Trace(3) < Engine_Value(MAX_ENGINE) then
       Current_Trace(3)  := Current_Trace(3) + Engine_Value(1);
     end if;
 
-    WriteServo(SERVA, Current_Trace(0));
-    WriteServo(SERVB, Current_Trace(1));
-    WriteServo(SERVC, Current_Trace(2));
-    WriteServo(SERVD, Current_Trace(3));
+    --Ada.Text_IO.Put_Line (" ------ New Position:" & Engine_Value'image(Current_Trace(0)) & Engine_Value'image(Current_Trace(1)) & Engine_Value'image(Current_Trace(2)) & Engine_Value'image(Current_Trace(3)));
 
-    Ada.Text_IO.Put_Line (" ------ New Position:" & Engine_Value'image(Current_Trace(0)) & Engine_Value'image(Current_Trace(1)) & Engine_Value'image(Current_Trace(2)) & Engine_Value'image(Current_Trace(3)));
+    -- Send throug socket
+
+    Buffer(Current_Char) := Integer'Image(ACC_ENGINE)(2);
+    Current_Char := Current_Char + 1;
+
+    for i in Integer range 0 .. 3 loop
+      if Current_Trace(i) < 10  then
+        Buffer(Current_Char) := '0';
+        Current_Char := Current_Char + 1;
+        Buffer(Current_Char) := Engine_Value'Image(Current_Trace(i))(2);
+        Current_Char := Current_Char + 1;
+      else
+        aux := Integer(Current_Trace(i)) / 10;
+        Buffer(Current_Char) := Integer'Image(aux)(2);
+        Current_Char := Current_Char + 1;
+        aux := Integer(Current_Trace(i)) - 10;
+        Buffer(Current_Char) := Integer'Image(aux)(2);
+        Current_Char := Current_Char + 1;
+      end if;
+    end loop;
+
+    Initialize;
+    Create_Socket (Socket);
+    Connect_Socket (Socket, Address);
+    Channel := Stream (Socket);
+    String'Write( Channel, Buffer );
+    Close_Socket( Socket );
+    Finalize;
 
     Last_TA := TempAObj.GetTemp;
     Last_TB := TempBObj.GetTemp;
     Last_Control := Current_Control;
 
-    PrintTime;
-    Ada.Text_IO.Put_Line ("Arm positioned!!!");
     delay until Next_Time;
     Next_Time := Next_Time + To_Time_Span(Periodo);
   end loop;

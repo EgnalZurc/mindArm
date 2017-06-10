@@ -314,14 +314,11 @@ void testMovement()
     printf("Select position: ");
     scanf("%d %d %d %d", &serva, &servb, &servc, &servd);
     printf("\n");
-
     softPwmWrite (4, serva);
     softPwmWrite (1, servb);
     softPwmWrite (5, servc);
     softPwmWrite (6, servd);
   }
-
-
 }
 
 int main(int argc, char *argv[])

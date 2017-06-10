@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <errno.h>
 
+#include <netdb.h>
+#include <netinet/in.h>
+
+#include <string.h>
+
 #include <wiringPi.h>
 #include <gertboard.h>
 #include <softPwm.h>
@@ -51,7 +56,7 @@ int loadServoMotor (int SERV)
   return 0 ;
 }
 
-void writehServo(int PIN, int str)
+void writeHardwareServo(int PIN, int str)
 {
   printf("Moving serv%d %d\n", PIN, str);
   pinMode(PIN, PWM_OUTPUT);
@@ -62,13 +67,54 @@ void writehServo(int PIN, int str)
   pwmWrite(PIN, getPWMPot(str));
 
 }
-
 void writeServo(int PIN, int str)
 {
-  printf("Moving serv%d %d\n", PIN, str);
-  softPwmCreate(PIN, 0, 215); //setup software pwm pin
-  for(::){
-  softPwmWrite (PIN, getPWMPot(str));
+   softPwmCreate(PIN, 0, 215); //setup software pwm pin
+   softPwmWrite (PIN, str);
+   printf("Moving serv%d %d\n", PIN, str);
+}
+
+void writeaServo(int serv0, int serv1, int serv2, int serv3)
+{
+  /*  printf("a\n");
+  int sockfd, portno, n;
+  struct sockaddr_in server;
+  char buffer[5];
+
+  portno = 30001;
+
+  /* Create a socket point */
+  /*sockfd = socket(AF_INET, SOCK_STREAM, 0);
+
+  if (sockfd < 0) {
+    printf("ERROR opening socket\n");
   }
+
+  server.sin_addr.s_addr = inet_addr("127.0.0.1");
+  server.sin_family = AF_INET;
+  server.sin_port = htons( portno );
+
+  /* Now connect to the server */
+  /*if (connect(sockfd, (struct sockaddr*)&server, sizeof(server)) < 0) {
+    printf("ERROR connecting\n");
+  }
+
+  bzero(buffer,4);
+  buffer[0] = serv0;
+  buffer[1] = serv1;
+  buffer[2] = serv2;
+  buffer[3] = serv3;
+
+  /* Send message to the server */
+  /*n = write(sockfd, buffer, strlen(buffer));
+  if (n < 0) {
+    printf("ERROR writing to socket\n");
+  }
+  else
+    printf("Sended %d %d %d %d\n", serv0, serv1, serv2, serv3);
+
+    close(sockfd);
+    printf("a\n");
+  return;*/
 }
 
