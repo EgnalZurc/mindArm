@@ -1,0 +1,416 @@
+V "GNAT Lib v4.9"
+P SS ZX
+
+RN
+RV NO_CALENDAR
+RV NO_DELAY
+RV NO_DIRECT_BOOLEAN_OPERATORS
+RV NO_EXCEPTION_HANDLERS
+RV NO_EXCEPTIONS
+RV NO_FIXED_POINT
+RV NO_FLOATING_POINT
+RV NO_IO
+RV NO_PROTECTED_TYPES
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_STREAMS
+RV NO_TASKING
+RV NO_DEFAULT_INITIALIZATION
+RV NO_ELABORATION_CODE
+RV NO_OBSOLESCENT_FEATURES
+RV SPARK_05
+RV MAX_TASKS=5
+RV MAX_ENTRY_QUEUE_LENGTH=1+
+
+U add%b			add.adb			0f566f27 OO PK IL
+W ada.real_time.delays%s  a-retide.adb		a-retide.ali
+W ada.streams%s		a-stream.adb		a-stream.ali
+W ada.tags%s		a-tags.adb		a-tags.ali
+W system.img_int%s	s-imgint.adb		s-imgint.ali
+W system.soft_links%s	s-soflin.adb		s-soflin.ali
+W system.strings.stream_ops%s  s-ststop.adb	s-ststop.ali
+W system.tasking.protected_objects%s  s-taprob.adb  s-taprob.ali
+W system.tasking.stages%s  s-tassta.adb		s-tassta.ali
+
+U add%s			add.ads			faa78f16 EE OO PF PK IL
+W ada%s			ada.ads			ada.ali
+W ada.calendar%s	a-calend.adb		a-calend.ali
+W ada.calendar.formatting%s  a-calfor.adb	a-calfor.ali
+W ada.calendar.time_zones%s  a-catizo.adb	a-catizo.ali
+W ada.long_float_text_io%s  a-lfteio.ads	a-lfteio.ali
+W ada.real_time%s	a-reatim.adb		a-reatim.ali
+W ada.streams%s		a-stream.adb		a-stream.ali
+W ada.strings%s		a-string.ads		a-string.ali
+W ada.strings.fixed%s	a-strfix.adb		a-strfix.ali
+W ada.strings.unbounded%s  a-strunb.adb		a-strunb.ali
+W ada.tags%s		a-tags.adb		a-tags.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W gnat%s		gnat.ads		gnat.ali
+W gnat.sockets%s	g-socket.adb		g-socket.ali
+W system%s		system.ads		system.ali
+W system.parameters%s	s-parame.adb		s-parame.ali
+W system.soft_links%s	s-soflin.adb		s-soflin.ali
+W system.task_info%s	s-tasinf.adb		s-tasinf.ali
+W system.tasking%s	s-taskin.adb		s-taskin.ali
+W system.tasking.protected_objects%s  s-taprob.adb  s-taprob.ali
+W system.tasking.stages%s  s-tassta.adb		s-tassta.ali
+
+D ada.ads		20070406091342 3ffc8e18
+D a-calend.ads		20120515092648 d86d6c8c
+D a-calfor.ads		20140127164329 0a6f9afc
+D a-catizo.ads		20120123093331 409d7e5b
+D a-charac.ads		20070912115821 2d3ec45b
+D a-chlat1.ads		20140225151544 66457d31
+D a-except.ads		20140129161953 f86a4103
+D a-finali.ads		20111121113555 52ecdc1b
+D a-ioexce.ads		20140225151544 e4a01f64
+D a-lfteio.ads		20070406091342 4969a46f
+D a-reatim.ads		20090409150019 63f07669
+D a-retide.ads		20090409150019 081cdaa4
+D a-stream.ads		20140122164720 1a984740
+D a-string.ads		20070406091342 90ac6797
+D a-strfix.ads		20101008130255 d07c346e
+D a-strmap.ads		20090409150019 9cb836fb
+D a-strunb.ads		20110829130134 fe8d9a91
+D a-tags.ads		20111212115430 6c0509d0
+D a-textio.ads		20140129155348 386df5d4
+D a-tiflio.ads		20090409150019 56fbda09
+D a-unccon.ads		20070406091342 f9eb8f06
+D a-uncdea.ads		20070406091342 f15a5ed1
+D add.ads		20170610111538 dc99ea1a
+D add.adb		20170610151822 d3cf853d
+D gnat.ads		20110801150502 fd2ad2f1
+D g-socket.ads		20140219150543 923c234a
+D interfac.ads		20140225151838 69adb1b9
+D i-c.ads		20110801143639 5421119b
+D i-cstrea.ads		20130412125801 8128536b
+D system.ads		20150309170216 72a1f35b
+D s-atacco.ads		20120515093410 4c36d12f
+D s-crtl.ads		20140225151544 840e6817
+D s-exctab.ads		20140225151139 54135002
+D s-ficobl.ads		20120709130952 55a71d43
+D s-finmas.ads		20140225151139 814daec4
+D s-finroo.ads		20120426095924 4ff27390
+D s-imgint.ads		20090409150019 02dbe0c2
+D s-linux.ads		20140409145429 5b2f79a5
+D s-multip.ads		20101011073009 38ac9f73
+D s-oscons.ads		20150309170222 5c2b9008
+D s-osinte.ads		20140409145429 59011f13
+D s-parame.ads		20140225151139 ab8cb46a
+D s-pooglo.ads		20110804083314 542f33d0
+D s-secsta.ads		20140225151139 86a2856d
+D s-soflin.ads		20140225151139 aa763b52
+D s-stache.ads		20140225151139 a37c21ec
+D s-stausa.ads		20110804134155 017a0a05
+D s-stalib.ads		20140225151139 a891183f
+D s-stoele.ads		20140225151139 2dc34a04
+D s-stoele.adb		20140225151139 ed88f8fb
+D s-stopoo.ads		20131010103753 b16154c2
+D s-stposu.ads		20121005142121 ffeba1c5
+D s-stratt.ads		20131014135145 aedef97e
+D s-string.ads		20140225151139 8fe54fb7
+D s-ststop.ads		20140225151139 e6693757
+D s-tasinf.ads		20120730151500 21316953
+D s-taspri.ads		20110927095410 0fee1d35
+D s-taprop.ads		20111212143339 1dd2e1b6
+D s-taskin.ads		20140131154341 3f821f32
+D s-taprob.ads		20110927094500 502249e3
+D s-tassta.ads		20121029110946 70812003
+D s-traent.ads		20140225151139 b5116092
+D s-unstyp.ads		20140225151139 510692af
+D s-wchcon.ads		20140225151139 1b7d22d2
+X 1 ada.ads
+16K9*Ada 19e8 23|1r6 1r35 2r6 3r6 3r35 4r6 4r35 5r6 5r35 6r6 7r6 7r35 8r6
+. 8r35 11r6 64r21 64r43 24|55r5 58r9 66r7 69r11 75r5
+X 2 a-calend.ads
+36K13*Calendar 375e17 23|6w10 7r10 7r39 8r10 8r39
+X 3 a-calfor.ads
+24K22*Formatting 215e28 23|7w19 7r48
+X 4 a-catizo.ads
+19K22*Time_Zones 32e28 23|8w19 8r48
+X 10 a-lfteio.ads
+18K13*Long_Float_Text_IO[20|45] 23|2w10 24|58r13 69r15
+X 11 a-reatim.ads
+39K13*Real_Time 139e18 23|5w10 5r39 64r25 64r47
+41O9*Time<duration> 23|64r35 24|141r15 162r15 180r15 648r15 711r15
+46O9*Time_Span<duration>
+53V13*Clock{41O9} 23|64s57
+55V14*"+"{41O9} 24|145s25 156s28 166s25 174s28 201s25 641s28 660s25 705s26
+. 736s25 864s28
+81V13*To_Time_Span{46O9} 24|145s27 156s30 166s27 174s30 201s27 641s30 660s27
+. 705s28 736s27 864s30
+X 13 a-stream.ads
+36K13*Streams 84e16 23|11w10
+X 14 a-string.ads
+16K13*Strings 35e16 23|3r10 3r39 4r10 4r39
+X 15 a-strfix.ads
+18K21*Fixed 251e22 23|4w18 4r47
+X 17 a-strunb.ads
+39K21*Unbounded 437e26 23|3w18 3r47
+X 19 a-textio.ads
+49K13*Text_IO 471e16 23|1w10 1r39 24|55r9 66r11 75r9
+52P9*File_Type 23|170r19
+53n23*In_File{53E9} 24|54r39 65r41
+92U14*Open 24|54s5 65s7
+93p7 File{52P9} 24|54r11 65r13
+94e7 Mode{53E9} 24|54r31 65r33
+95s7 Name{string} 24|54r48 65r50
+98U14*Close 24|62s5 73s7
+98p22 File{52P9} 24|62r12 73r14
+263U14*Put_Line 24|55s17 66s19 75s17
+X 20 a-tiflio.ads
+51U14*Get 24|58s32[10|18] 69s34[10|18]
+52p7 File{19|52P9} 24|58r37[10|18] 69r39[10|18]
+53f7 Item{long_float} 24|58r57[10|18] 69r59[10|18]
+X 23 add.ads
+13K9*add 183l5 183e8 24|1b14 871l5 871t8
+20i1*UPDTTRC{integer} 119r20 163r18 176r18
+21i1*CONTROLP{integer} 122r20 138r17 145r17 154r17
+22i1*SENSORHIGH{integer}
+23i1*SENSORLOW{integer} 125r20 128r20
+24i1*DISPLAYP{integer} 131r20
+27I6*PIN<integer> 33r22 35r22 36r22 37r22 38r22 40r22 41r22 43r22 44r22 45r22
+. 46r22 97r33 104r30
+28I6*SPIPIN<integer> 30r22 31r22 96r33
+30i1*TEMPA{28I6} 24|148r34
+31i1*TEMPB{28I6} 24|151r34
+33i1*PRESA{27I6} 24|169r34
+35i1*SERVA{27I6}
+36i1*SERVB{27I6}
+37i1*SERVC{27I6}
+38i1*SERVD{27I6}
+40i1*LEDTEMPA{27I6} 24|668r18 673r18
+41i1*LEDTEMPB{27I6} 24|681r18 686r18
+43i1*LEDPRESA{27I6} 24|695r18 700r18
+44i1*LEDPRESB{27I6}
+45i1*LEDPRESC{27I6}
+46i1*LEDPRESD{27I6}
+51i1*WORKING_MODE{integer} 24|64r8 208r8
+54I6*Temp_Value<integer> 60r22 60r38 96r48 139r25 140r26 142r8 146r25 147r26
+. 149r8 24|8r27 13r28 21r27 26r28 142r14 650r15 719r21 720r21 721r21 722r21
+. 737r14 738r14
+56I6*Pres_Value<integer> 61r22 61r38 97r45 155r25 156r30 158r11 24|36r27
+. 41r32 163r14 651r15 724r21
+57I6*Led_Value<integer> 104r44
+60i1*MAX_TEMP{54I6} 24|665r20 678r20 770r21 786r21
+61i1*MAX_PRES{56I6} 24|692r21 762r22
+64o1*Big_Bang{11|41O9} 24|145r16 166r16 201r16 660r16 736r16
+70i1*ACC_ENGINE{integer} 24|832r43
+71i1*MAX_ENGINE{integer} 76r52 24|806r85 812r85 818r85 824r85
+72i1*MIN_ENGINE{integer} 76r40 24|804r82 810r82 816r82 822r82
+73i1*Number_Engines{integer} 77r34 80r36
+74f1*MAX_ERROR{long_float} 24|81r64 82r64 83r64 84r64 85r64 86r64 87r64 88r64
+. 89r64 90r66 91r66 92r66 93r66 94r66
+76I6*Engine_Value<integer> 77r53 105r55 24|804r69 805r47 806r72 807r47 810r69
+. 811r47 812r72 813r47 816r69 817r47 818r72 819r47 822r69 823r47 824r72 825r47
+. 839r33
+77A6*Trace_Object(76I6)<integer> 24|717r21
+79I6*Control_Value<integer> 80r55 24|804r29 806r32 810r29 812r32 816r29 818r32
+. 822r29 824r32
+80A6*Control_Object(79I6)<integer> 177r28 178r31 180r12 24|123r30 128r33
+. 197r15 715r21 716r21
+82A6*Trace(long_float)<integer> 86r29 165r30 24|78r32 182r15
+84R6*Movement 87e16 89r40 90r50
+86a9*Movement_Trace{82A6} 24|59m27 70m39 81r43 82r43 83r43 84r43 85r43 86r43
+. 87r43 88r43 89r43 90r44 91r44 92r44 93r44 94r44 103r43 104r43 105r43 106r43
+. 107r43 108r43 109r43 110r43 111r43 112r43 113r43 114r43 115r43 116r43
+89A6*Movement_List(84R6)<integer> 168r19 169r29
+90A6*Emulating_Movement_List(84R6)<integer>
+96V10*ReadTempSensor{54I6} 96>26 98b<c,readTemp>19 24|148s18 151s18
+96i26 temp{28I6}
+97V10*ReadPresSensor{56I6} 97>26 99b<c,readPres>19 24|169s18
+97i26 pres{27I6}
+101U11*ReadTrace 101>22 101<41 101<45 101<49 101<53 101<57 101<61 101<65
+. 101<69 101<73 101<77 101<82 101<87 101<92 101<97 102b<c,readTrace>19 24|211s7
+101i22 Line{integer}
+101f41 V1{long_float}
+101f45 V2{long_float}
+101f49 V3{long_float}
+101f53 V4{long_float}
+101f57 V5{long_float}
+101f61 V6{long_float}
+101f65 V7{long_float}
+101f69 V8{long_float}
+101f73 V9{long_float}
+101f77 V10{long_float}
+101f82 V11{long_float}
+101f87 V12{long_float}
+101f92 V13{long_float}
+101f97 V14{long_float}
+104U11*WriteLed 104>21 104>35 107b<c,writeLed>19 24|668s9 673s9 681s9 686s9
+. 695s9 700s9
+104i21 led{27I6}
+104i35 str{57I6}
+105U11*WriteServo 105>23 105>30 105>37 105>44 108b<c,writeServo>19
+105i23 serva{76I6}
+105i30 servb{76I6}
+105i37 servc{76I6}
+105i44 servd{76I6}
+106U11*Movement_Handler 109b<c,movementHandler>19
+111V10*PrintTime{integer} 112b<c,printTime>19
+118t6*UpdateTrace 24|179b11 644l5 644t16
+121t6*Control 24|710b11 866l5 866t12
+124t6*UpdatePresSensor 24|161b11 176l5 176t21
+127t6*UpdateTempSensor 24|140b11 158l5 158t21
+130t6*Display 24|647b11 707l5 707t12
+137w11*TempAObj 24|6b16 18l5 18t13 149r5 664r18 753r19 859r16
+139V10 GetTemp{54I6} 24|8b12 11l7 11t14 664s27 753s28 859s25
+140U11 SetTemp 140>20 24|13b13 16l7 16t14 149s14
+140i20 Tem{54I6} 24|13b22 15r13
+142i1 Temp{54I6} 24|10r12 15r5
+144w11*TempBObj 24|19b16 31l5 31t13 152r5 677r18 754r19 860r16
+146V10 GetTemp{54I6} 24|21b12 24l7 24t14 677s27 754s28 860s25
+147U11 SetTemp 147>20 24|26b13 29l7 29t14 152s14
+147i20 Tem{54I6} 24|26b22 28r13
+149i1 Temp{54I6} 24|23r12 28r5
+153w11*PresAObj 24|34b16 46l5 46t13 170r5 691r18 756r19
+155V10 GetPres{56I6} 24|36b12 39l7 39t14 691s27 756s28
+156U11 SetPresion 156>23 24|41b13 44l7 44t17 170s14
+156i23 Pres{56I6} 24|41b25 43r16
+158i1 Presion{56I6} 24|38r12 43r5
+162w11*MovementsObj 24|50b16 119l5 119t17 203r3 209r7 229r10
+164U11 InitMovements 24|52b13 76l7 76t20 203s16
+165V10 MatchMovement{integer} 165>25 24|78b12 99l7 99t20 229s23
+165a25 Mov{82A6} 24|78b27 81r16 82r16 83r16 84r16 85r16 86r16 87r16 88r16
+. 89r16 90r16 91r16 92r16 93r16 94r16
+166U11 ReadLibTrace 166>25 166<44 166<48 166<52 166<56 166<60 166<64 166<68
+. 166<72 166<76 166<80 166<85 166<90 166<95 166<100 24|101b13 117l7 117t19
+. 209s20
+166i25 Line{integer} 24|101b27 103r37 104r37 105r37 106r37 107r37 108r37
+. 109r37 110r37 111r37 112r37 113r37 114r37 115r37 116r37
+166f44 V1{long_float} 24|101b46 103m5
+166f48 V2{long_float} 24|101b50 104m5
+166f52 V3{long_float} 24|101b54 105m5
+166f56 V4{long_float} 24|101b58 106m5
+166f60 V5{long_float} 24|101b62 107m5
+166f64 V6{long_float} 24|101b66 108m5
+166f68 V7{long_float} 24|101b70 109m5
+166f72 V8{long_float} 24|101b74 110m5
+166f76 V9{long_float} 24|101b78 111m5
+166f80 V10{long_float} 24|101b82 112m5
+166f85 V11{long_float} 24|101b87 113m5
+166f90 V12{long_float} 24|101b92 114m5
+166f95 V13{long_float} 24|101b97 115m5
+166f100 V14{long_float} 24|101b102 116m5
+168a3 Movements_List{89A6} 24|59r9 81r25 82r25 83r25 84r25 85r25 86r25 87r25
+. 88r25 89r25 90r26 91r26 92r26 93r26 94r26
+169a3 Emulating_Movements_List{89A6} 24|70r11 103r12 104r12 105r12 106r12
+. 107r12 108r12 109r12 110r12 111r12 112r12 113r12 114r12 115r12 116r12
+170p3 Input_File{19|52P9} 24|54r19 58r45 62r20 65r21 69r47 73r22
+171f3 voltaje{long_float} 24|58r65 59r48 69r67 70r60
+175w11*ControlObj 24|121b16 133l5 133t15 637r5 752r24
+177V10 GetControl{80A6} 24|123b12 126l7 126t17 752s35
+178U11 SetControl 178>23 24|128b13 131l7 131t17 637s16
+178a23 CtrlOb{80A6} 24|128b25 130r16
+180a3 CtrlObj{80A6} 24|125r12 130r5
+X 24 add.adb
+56i9 I{integer} 59r24
+57i11 J{integer} 59r42
+67i11 I{integer} 70r36
+68i13 J{integer} 70r54
+80i9 I{integer} 81r40 82r40 83r40 84r40 85r40 86r40 87r40 88r40 89r40 90r41
+. 91r41 92r41 93r41 94r41 95r17
+141o3 Next_Time{11|41O9} 145m3 155r17 156m5 156r18
+142i3 Current_T{23|54I6} 148m5 149r23 151m5 152r23
+143o3 Periodo{duration} 145r40 156r43
+162o3 Next_Time{11|41O9} 166m3 173r17 174m5 174r18
+163i3 Current_P{23|56I6} 169m5 170r26
+164o3 Periodo{duration} 166r40 174r43
+180o3 Next_Time{11|41O9} 201m3 640r17 641m5 641r18
+181o3 Periodo{duration} 201r40 641r43
+182a3 Current_M{23|82A6} 213m5 214m5 215m5 216m5 217m5 218m5 219m5 220m5
+. 221m5 222m5 223m5 224m5 225m5 226m5 229r38
+183f3 V1{long_float} 209m40 211m24 213r33
+184f3 V2{long_float} 209m44 211m28 214r33
+185f3 V3{long_float} 209m48 211m32 215r33
+186f3 V4{long_float} 209m52 211m36 216r33
+187f3 V5{long_float} 209m56 211m40 217r33
+188f3 V6{long_float} 209m60 211m44 218r33
+189f3 V7{long_float} 209m64 211m48 219r33
+190f3 V8{long_float} 209m68 211m52 220r33
+191f3 V9{long_float} 209m72 211m56 221r33
+192f3 V10{long_float} 209m76 211m60 222r33
+193f3 V11{long_float} 209m81 211m65 223r33
+194f3 V12{long_float} 209m86 211m70 224r33
+195f3 V13{long_float} 209m91 211m75 225r33
+196f3 V14{long_float} 209m96 211m80 226r33
+197a3 Current_T{23|80A6} 231m9 232m9 233m9 234m9 236m9 237m9 238m9 239m9
+. 241m9 242m9 243m9 244m9 246m9 247m9 248m9 249m9 251m9 252m9 253m9 254m9
+. 256m9 257m9 258m9 259m9 261m9 262m9 263m9 264m9 266m9 267m9 268m9 269m9
+. 271m9 272m9 273m9 274m9 276m9 277m9 278m9 279m9 281m9 282m9 283m9 284m9
+. 286m9 287m9 288m9 289m9 291m9 292m9 293m9 294m9 296m9 297m9 298m9 299m9
+. 301m9 302m9 303m9 304m9 306m9 307m9 308m9 309m9 311m9 312m9 313m9 314m9
+. 316m9 317m9 318m9 319m9 321m9 322m9 323m9 324m9 326m9 327m9 328m9 329m9
+. 331m9 332m9 333m9 334m9 336m9 337m9 338m9 339m9 341m9 342m9 343m9 344m9
+. 346m9 347m9 348m9 349m9 351m9 352m9 353m9 354m9 356m9 357m9 358m9 359m9
+. 361m9 362m9 363m9 364m9 366m9 367m9 368m9 369m9 371m9 372m9 373m9 374m9
+. 376m9 377m9 378m9 379m9 381m9 382m9 383m9 384m9 386m9 387m9 388m9 389m9
+. 391m9 392m9 393m9 394m9 396m9 397m9 398m9 399m9 401m9 402m9 403m9 404m9
+. 406m9 407m9 408m9 409m9 411m9 412m9 413m9 414m9 416m9 417m9 418m9 419m9
+. 421m9 422m9 423m9 424m9 426m9 427m9 428m9 429m9 431m9 432m9 433m9 434m9
+. 436m9 437m9 438m9 439m9 441m9 442m9 443m9 444m9 446m9 447m9 448m9 449m9
+. 451m9 452m9 453m9 454m9 456m9 457m9 458m9 459m9 461m9 462m9 463m9 464m9
+. 466m9 467m9 468m9 469m9 471m9 472m9 473m9 474m9 476m9 477m9 478m9 479m9
+. 481m9 482m9 483m9 484m9 486m9 487m9 488m9 489m9 491m9 492m9 493m9 494m9
+. 496m9 497m9 498m9 499m9 501m9 502m9 503m9 504m9 506m9 507m9 508m9 509m9
+. 511m9 512m9 513m9 514m9 516m9 517m9 518m9 519m9 521m9 522m9 523m9 524m9
+. 526m9 527m9 528m9 529m9 531m9 532m9 533m9 534m9 536m9 537m9 538m9 539m9
+. 541m9 542m9 543m9 544m9 546m9 547m9 548m9 549m9 551m9 552m9 553m9 554m9
+. 556m9 557m9 558m9 559m9 561m9 562m9 563m9 564m9 566m9 567m9 568m9 569m9
+. 571m9 572m9 573m9 574m9 576m9 577m9 578m9 579m9 581m9 582m9 583m9 584m9
+. 586m9 587m9 588m9 589m9 591m9 592m9 593m9 594m9 596m9 597m9 598m9 599m9
+. 601m9 602m9 603m9 604m9 606m9 607m9 608m9 609m9 611m9 612m9 613m9 614m9
+. 616m9 617m9 618m9 619m9 621m9 622m9 623m9 624m9 626m9 627m9 628m9 629m9
+. 631m9 632m9 633m9 634m9 637r28
+198i3 Line{integer} 205m3 209r34 211r18 642m5 642r13
+648o3 Next_Time{11|41O9} 660m3 704r15 705m3 705r16
+649o3 Periodo{duration} 660r40 705r41
+650i3 Current_T{23|54I6} 664m5 665r8 677m5 678r8
+651i3 Current_P{23|56I6} 691m5 692r8
+652i3 Led_TempA{integer} 666r10 667m9 671r10 672m9
+653i3 Led_TempB{integer} 679r10 680m9 684r10 685m9
+654i3 Led_PresA{integer} 693r10 694m9 698r10 699m9
+655i3 Led_PresB{integer}
+656i3 Led_PresC{integer}
+657i3 Led_PresD{integer}
+711o3 Next_Time{11|41O9} 736m3 863r17 864m5 864r18
+712o3 Periodo{duration} 736r40 864r43
+713i3 PresFlag{integer} 763m7 765m7 770r34 786r34
+715a3 Current_Control{23|80A6} 752m5 774m11 776r14 777m13 779m13 790m11 792r14
+. 793m13 795m13 804r8 806r11 810r8 812r11 816r8 818r11 822r8 824r11 861r21
+716a3 Last_Control{23|80A6} 743m3 744m3 745m3 746m3 773r12 789r12 861m5
+717a3 Current_Trace{23|77A6} 739m3 740m3 741m3 742m3 804r50 805m7 805r28
+. 806r53 807m7 807r28 810r50 811m7 811r28 812r53 813m7 813r28 816r50 817m7
+. 817r28 818r53 819m7 819r28 822r50 823m7 823r28 824r53 825m7 825r28 836r10
+. 839r52 842r24 845r24
+719i3 Current_TA{23|54I6} 753m5 770r8 772r10
+720i3 Current_TB{23|54I6} 754m5 786r8 788r10
+721i3 Last_TA{23|54I6} 737m3 772r23 859m5
+722i3 Last_TB{23|54I6} 738m3 788r23 860m5
+724i3 Current_PA{23|56I6} 756m5 762r8
+727i3 Socket{26|412I9} 852m20 853r21 854r24 856r19
+728r3 Address{26|505R9} 853r29
+729p3 Channel{26|1007P9} 854m5 855r19
+730a3 Buffer{string} 832m5 837m9 839m9 843m9 846m9 855r28
+732i3 Current_Char{integer} 758m5 832r12 833m5 833r21 837r16 838m9 838r25
+. 839r16 840m9 840r25 843r16 844m9 844r25 846r16 847m9 847r25
+733i3 Aux{integer} 842m9 843r47 845m9 846r47
+835i9 i{integer} 836r24 839r66 842r38 845r38
+X 25 gnat.ads
+34K9*GNAT 23|9r6 9r35 24|748r3 25|37e9
+X 26 g-socket.ads
+58K14*Sockets 23|9w11 9r40 24|748r8 26|1263e17
+379U14*Initialize 24|748s16 851s5
+403U14*Finalize 24|857s5
+412I9*Socket_Type<integer> 24|727r13
+463n25*Family_Inet{463E9} 24|728r32
+505R9*Sock_Addr_Type 24|728r13 26|508e14
+524V13*Inet_Addr{488R9} 24|728s45
+805U14*Create_Socket 24|852s5
+842U14*Close_Socket 24|856s5
+845U14*Connect_Socket 24|853s5
+1007P9*Stream_Access(13|39R9) 24|729r13
+1010V13*Stream{1007P9} 24|854s16
+X 47 s-stausa.ads
+203U14*Initialize 204i<c,__gnat_stack_usage_initialize>22
+268U14*Output_Results 272i<c,__gnat_stack_usage_output_results>22
+

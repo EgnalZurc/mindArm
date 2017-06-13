@@ -48,7 +48,7 @@ LEDPRESD:   constant PIN := 0;
 
 -- Working mode! 0 = Simulator, 1 = Helmet reader.
 
-WORKING_MODE : constant Integer := 1;
+WORKING_MODE : constant Integer := 0;
 
 -- Objets values
 type Temp_Value is new integer range -50..125; -- -50ºC a 125º

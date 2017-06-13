@@ -120,10 +120,10 @@ void movementHandler()
       servc = getSPWMPot( ((buffer[5] - 48) * 10) + (buffer[6] - 48) );
       servd = getSPWMPot( ((buffer[7] - 48) * 10) + (buffer[8] - 48) );
 
-      softPwmWrite (4, serva);
-      pwmWrite(     1, servb);
-      softPwmWrite (5, servc);
-      softPwmWrite (6, servd);
+      softPwmWrite (4, serva-4);
+      pwmWrite(     1, servb-4);
+      softPwmWrite (5, servc-4);
+      softPwmWrite (6, servd-4);
 
       printf("%d %d %d %d\n", serva-4, servb, servc-4, servd-4);
     }
